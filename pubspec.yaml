@@ -5,13 +5,16 @@ environment:
   sdk: '>=1.19.0 <2.0.0'
 dependencies:
   angular2: ^2.0.0
+  tekartik_app_utils:
+    git: git://github.com/tekartik/tekartik_app_utils.dart
+
 dev_dependencies:
   browser: ^0.10.0
   test: any
   dev_test: any
   dart_to_js_script_rewriter: ^1.0.1
-  tekartik_app_utils:
-    git: git://github.com/tekartik/tekartik_app_utils.dart
+  chrome_travis:
+    git: git://github.com/tekartik/chrome_travis.dart
 transformers:
 - angular2:
     platform_directives:
