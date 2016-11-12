@@ -1,0 +1,15 @@
+<div #wrapper class="sidebar-layout-wrapper">
+
+  <!-- Sidebar -->
+  <div #sideBar class="sidebar-layout-sidebar">
+    <ng-content select="[side-bar]"></ng-content>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div #content class="sidebar-layout-content">
+    <ng-content select="[content]"></ng-content>
+  </div>
+  <!-- /#page-content-wrapper -->
+
+</div>
