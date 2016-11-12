@@ -7,7 +7,7 @@
   <!-- /#sidebar-wrapper -->
 
   <!-- Page Content -->
-  <div #content class="sidebar-layout-content">
+  <div #content class="sidebar-layout-content" (click)="onContentClick()">
     <ng-content select="[content]"></ng-content>
   </div>
   <!-- /#page-content-wrapper -->

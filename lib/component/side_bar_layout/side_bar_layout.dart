@@ -9,6 +9,7 @@ import 'dart:html';
 class SideBarLayoutComponent implements OnInit, AfterContentInit {
   bool _sideBarVisible;
   bool _bigScreen;
+  bool _shouldHandleContentClick;
   @Input()
   String sideBarWidth;
 
@@ -63,9 +64,21 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       sideBarElement.style.marginLeft = '-${sideBarWidth}';
       sideBarElement.style.width = '${sideBarWidth}';
     }
-    _bigScreen = bigScreen;
-    //devPrint('arranging...');
-    resetSideBar(noAnimation: noAnimation);
+    _shouldHandleContentClick = false;
+
+    if (_bigScreen != bigScreen) {
+      _bigScreen = bigScreen;
+      //devPrint('arranging...');
+
+      // small screen: fixed & height=100%
+      sideBarElement.style.position = _bigScreen ? "absolute" : "fixed";
+      if (_bigScreen) {
+        sideBarElement.style.height = null;
+      } else {
+        sideBarElement.style.height = "100%";
+      }
+      resetSideBar(noAnimation: noAnimation);
+    }
   }
 
   void showSideBar({bool noAnimation}) {
@@ -73,13 +86,26 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       //sideBarElement.style.transform = 'translate(${sideBarWidth},0px)';
       _sideBarVisible = true;
       sideBarElement.style.left = '${sideBarWidth}';
-      contentElement.style.marginRight =
-          _bigScreen ? '0px' : '-${sideBarWidth}';
-      wrapperElement.style.paddingLeft = '${sideBarWidth}';
+
+      // push for big screen
+      if (_bigScreen) {
+        contentElement.style.marginRight =
+            _bigScreen ? '0px' : '-${sideBarWidth}';
+        wrapperElement.style.paddingLeft = '${sideBarWidth}';
+      } else {
+        // wait 500ms before handling click
+        sleep(500).then((_) {
+          devPrint('_shouldHandleContentClick');
+          if (!_bigScreen && _sideBarVisible) {
+            _shouldHandleContentClick = true;
+          }
+        });
+      }
     }
   }
 
   void hideSideBar({bool noAnimation}) {
+    _shouldHandleContentClick = false;
     if (_sideBarVisible) {
       //sideBarElement.style.transform = 'translate(-${sideBarWidth},0px)';
       _sideBarVisible = false;
@@ -116,6 +142,16 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       });
     }
   }
+
+  onContentClick() {
+    devPrint("onContentClick($_shouldHandleContentClick _bigScreen $_sideBarVisible)");
+    if (_shouldHandleContentClick) {
+        resetSideBar();
+        devPrint("onContentClick()");
+      }
+
+  }
+
 }
 
 @Directive(selector: '[side-bar-width]')

@@ -7,6 +7,8 @@ dependencies:
   angular2: ^2.0.0
   tekartik_app_utils:
     git: git://github.com/tekartik/tekartik_app_utils.dart
+  tekartik_build_utils:
+    git: git://github.com/tekartik/build_utils.dart
 
 dev_dependencies:
   browser: ^0.10.0
@@ -28,3 +30,5 @@ transformers:
 dependency_overrides:
 #  tekartik_app_utils:
 #    path: ../tekartik_app_utils.dart
+#  tekartik_build_utils:
+#    path: ../build_utils.dart
