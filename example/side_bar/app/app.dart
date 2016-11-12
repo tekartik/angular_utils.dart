@@ -5,11 +5,11 @@ import 'package:tekartik_browser_utils/browser_utils_import.dart';
 import 'dart:html';
 
 @Component(
-  selector: 'app',
-  templateUrl: 'app.html',
-  styleUrls: const <String>['app.css'], directives: const [SideBarLayoutComponent])
+    selector: 'app',
+    templateUrl: 'app.html',
+    styleUrls: const <String>['app.css'],
+    directives: const [SideBarLayoutComponent])
 class AppComponent implements OnInit {
-
   AppComponent();
 
   @ViewChild('sideBarLayout')
@@ -30,25 +30,19 @@ class AppComponent implements OnInit {
   @override
   void ngOnInit() {
     (hideComponent.nativeElement as ButtonElement).onClick.listen((_) {
-      devPrint('hide');
       sideBarLayoutComponent.hideSideBar();
     });
 
     (showComponent.nativeElement as ButtonElement).onClick.listen((_) {
-      devPrint('show');
       sideBarLayoutComponent.showSideBar();
     });
 
     (resetComponent.nativeElement as ButtonElement).onClick.listen((_) {
-      devPrint('reset');
       sideBarLayoutComponent.resetSideBar();
     });
 
     (toggleComponent.nativeElement as ButtonElement).onClick.listen((_) {
-      devPrint('reset');
       sideBarLayoutComponent.toggleSideBar();
     });
   }
-
-
 }

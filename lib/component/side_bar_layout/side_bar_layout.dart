@@ -3,11 +3,10 @@ import 'package:tekartik_browser_utils/browser_utils_import.dart';
 import 'dart:html';
 
 @Component(
-  selector: 'side-bar-layout',
-  templateUrl: 'side_bar_layout.html',
-  styleUrls: const <String>['side_bar_layout.css'])
+    selector: 'side-bar-layout',
+    templateUrl: 'side_bar_layout.html',
+    styleUrls: const <String>['side_bar_layout.css'])
 class SideBarLayoutComponent implements OnInit, AfterContentInit {
-
   bool _sideBarVisible;
   bool _bigScreen;
   @Input()
@@ -40,22 +39,20 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
     return int.parse(textWidth.replaceAll("px", ""));
   }
 
-
   @override
   void ngOnInit() {
-
-
-    devPrint("sideBarWidth $sideBarWidth");
+    //devPrint("sideBarWidth $sideBarWidth");
 
     int sideBarWidth_ = getPixelWidth(sideBarWidth);
     int contentMinWidth_ = getPixelWidth(contentMinWidth);
-    MediaQueryList mql = window.matchMedia("(min-width: ${sideBarWidth_ + contentMinWidth_}px)");
-    devPrint(mql.matches);
+    MediaQueryList mql =
+        window.matchMedia("(min-width: ${sideBarWidth_ + contentMinWidth_}px)");
+    //devPrint(mql.matches);
     _arrange(mql.matches, noAnimation: true);
     mql.addListener((Event event) {
-      devPrint("Changed");
-      devPrint(event);
-      devPrint(mql.matches);
+      //devPrint("Changed");
+      //devPrint(event);
+      //devPrint(mql.matches);
       _arrange(mql.matches);
     });
   }
@@ -67,7 +64,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       sideBarElement.style.width = '${sideBarWidth}';
     }
     _bigScreen = bigScreen;
-    devPrint('arranging...');
+    //devPrint('arranging...');
     resetSideBar(noAnimation: noAnimation);
   }
 
@@ -76,11 +73,12 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       //sideBarElement.style.transform = 'translate(${sideBarWidth},0px)';
       _sideBarVisible = true;
       sideBarElement.style.left = '${sideBarWidth}';
-      contentElement.style.marginRight = _bigScreen ? '0px' : '-${sideBarWidth}';
+      contentElement.style.marginRight =
+          _bigScreen ? '0px' : '-${sideBarWidth}';
       wrapperElement.style.paddingLeft = '${sideBarWidth}';
-
     }
   }
+
   void hideSideBar({bool noAnimation}) {
     if (_sideBarVisible) {
       //sideBarElement.style.transform = 'translate(-${sideBarWidth},0px)';
@@ -91,6 +89,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       wrapperElement.style.paddingLeft = '0px';
     }
   }
+
   void resetSideBar({bool noAnimation}) {
     if (_bigScreen) {
       showSideBar(noAnimation: noAnimation);
@@ -98,6 +97,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       hideSideBar(noAnimation: noAnimation);
     }
   }
+
   void toggleSideBar({bool noAnimation}) {
     if (_sideBarVisible) {
       hideSideBar(noAnimation: noAnimation);
@@ -105,10 +105,11 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       showSideBar(noAnimation: noAnimation);
     }
   }
+
   @override
   ngAfterContentInit() {
     // TODO: implement ngAfterContentInit
-    devPrint('toggle?: ${toggleSideBarRef}');
+    //devPrint('toggle?: ${toggleSideBarRef}');
     if (toggleSideBarElement != null) {
       toggleSideBarElement.onClick.listen((_) {
         toggleSideBar();
@@ -116,7 +117,6 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
     }
   }
 }
-
 
 @Directive(selector: '[side-bar-width]')
 class SideBarLayoutDirective {
