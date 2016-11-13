@@ -6,5 +6,6 @@ side-bar-layout [side-bar] {
     padding: 15px;
     background: #888;
     flex: 1;
+    min-height: 100%;
 }
 

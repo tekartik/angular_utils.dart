@@ -17,7 +17,7 @@
 .sidebar-layout-sidebar {
     z-index: 1000;
     position: absolute;
-    min-height: 100%;
+    min-height: 100vh;
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
