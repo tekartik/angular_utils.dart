@@ -2,6 +2,9 @@ import 'package:angular2/core.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
 import 'dart:html';
 
+const String sideBarClosedClass = "sidebar-closed";
+const String sideBarLargeScreenClass = "sidebar-large-screen";
+
 @Component(
     selector: 'side-bar-layout',
     templateUrl: 'side_bar_layout.html',
@@ -10,11 +13,17 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
   bool _sideBarVisible;
   bool _bigScreen;
   bool _shouldHandleContentClick;
+
+
   @Input()
   String sideBarWidth;
 
   @Input()
   String contentMinWidth;
+
+  ElementRef hostRef;
+
+  SideBarLayoutComponent(this.hostRef);
 
   @ViewChild('content')
   ElementRef contentRef;
@@ -68,7 +77,8 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
 
     if (_bigScreen != bigScreen) {
       _bigScreen = bigScreen;
-      //devPrint('arranging...');
+      (hostRef.nativeElement as Element).classes.toggle(sideBarLargeScreenClass, _bigScreen);
+      devPrint('arranging...big $bigScreen');
 
       // small screen: fixed & height=100%
       sideBarElement.style.position = _bigScreen ? "absolute" : "fixed";
@@ -101,6 +111,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
           }
         });
       }
+      (hostRef.nativeElement as Element).classes.remove(sideBarClosedClass);
     }
   }
 
@@ -113,6 +124,8 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
 
       contentElement.style.marginRight = '0px';
       wrapperElement.style.paddingLeft = '0px';
+
+      (hostRef.nativeElement as Element).classes.add(sideBarClosedClass);
     }
   }
 
