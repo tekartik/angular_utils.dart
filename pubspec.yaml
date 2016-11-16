@@ -5,6 +5,7 @@ environment:
   sdk: '>=1.19.0 <2.0.0'
 dependencies:
   angular2: ^2.0.0
+  angular2_components: '>=0.1.0'
   tekartik_app_utils:
     git: git://github.com/tekartik/tekartik_app_utils.dart
   tekartik_build_utils:
@@ -26,6 +27,8 @@ transformers:
     entry_points:
     - web/main.dart
     - example/side_bar/main.dart
+    - example/layout/page_layout/main.dart
+    - example/view/wait_box/main.dart
 - dart_to_js_script_rewriter
 dependency_overrides:
 #  tekartik_app_utils:

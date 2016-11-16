@@ -16,6 +16,6 @@ example_sidebar() {
 }
 @Task('Test')
 test() async {
-  devPrint('test');
+  //devPrint('test');
 }
 

@@ -1,6 +1,7 @@
+import 'dart:html';
+
 import 'package:angular2/core.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
-import 'dart:html';
 
 const String sideBarClosedClass = "sidebar-closed";
 const String sideBarLargeScreenClass = "sidebar-large-screen";
@@ -13,7 +14,6 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
   bool _sideBarVisible;
   bool _bigScreen;
   bool _shouldHandleContentClick;
-
 
   @Input()
   String sideBarWidth;
@@ -77,8 +77,10 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
 
     if (_bigScreen != bigScreen) {
       _bigScreen = bigScreen;
-      (hostRef.nativeElement as Element).classes.toggle(sideBarLargeScreenClass, _bigScreen);
-      devPrint('arranging...big $bigScreen');
+      (hostRef.nativeElement as Element)
+          .classes
+          .toggle(sideBarLargeScreenClass, _bigScreen);
+      //devPrint('arranging...big $bigScreen');
 
       // small screen: fixed & height=100%
       sideBarElement.style.position = _bigScreen ? "absolute" : "fixed";
@@ -105,7 +107,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       } else {
         // wait 500ms before handling click
         sleep(500).then((_) {
-          devPrint('_shouldHandleContentClick');
+          //devPrint('_shouldHandleContentClick');
           if (!_bigScreen && _sideBarVisible) {
             _shouldHandleContentClick = true;
           }
@@ -157,19 +159,17 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
   }
 
   onContentClick() {
-    devPrint("onContentClick($_shouldHandleContentClick _bigScreen $_sideBarVisible)");
+    //devPrint("onContentClick($_shouldHandleContentClick _bigScreen $_sideBarVisible)");
     if (_shouldHandleContentClick) {
-        resetSideBar();
-        devPrint("onContentClick()");
-      }
-
+      resetSideBar();
+    }
   }
-
 }
 
 @Directive(selector: '[side-bar-width]')
 class SideBarLayoutDirective {
   SideBarLayoutComponent element;
+
   SideBarLayoutDirective(ElementRef element) {
     element.nativeElement.style.backgroundColor = 'yellow';
   }
