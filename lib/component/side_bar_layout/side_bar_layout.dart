@@ -6,6 +6,7 @@ import 'package:tekartik_browser_utils/browser_utils_import.dart';
 const String sideBarClosedClass = "sidebar-closed";
 const String sideBarLargeScreenClass = "sidebar-large-screen";
 
+typedef SideBarLayoutComponentResizeListener(bool bigScreen);
 @Component(
     selector: 'side-bar-layout',
     templateUrl: 'side_bar_layout.html',
@@ -45,6 +46,16 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
 
   Element get toggleSideBarElement => toggleSideBarRef?.nativeElement;
 
+  SideBarLayoutComponentResizeListener _resizeListener;
+
+  // make sure the listener is called right away
+  set resizeListener(SideBarLayoutComponentResizeListener resizeListener) {
+    _resizeListener = resizeListener;
+    if (resizeListener != null && _bigScreen != null) {
+      resizeListener(_bigScreen);
+    }
+  }
+  
   static int getPixelWidth(String textWidth) {
     return int.parse(textWidth.replaceAll("px", ""));
   }
@@ -68,6 +79,9 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
   }
 
   _arrange(bool bigScreen, {bool noAnimation}) {
+    if (_resizeListener != null) {
+      _resizeListener(bigScreen);
+    }
     if (_sideBarVisible == null) {
       _sideBarVisible = false;
       sideBarElement.style.marginLeft = '-${sideBarWidth}';
