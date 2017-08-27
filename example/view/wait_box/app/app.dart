@@ -1,5 +1,5 @@
-import 'package:angular2/core.dart';
-import 'package:tekartik_angular2_utils/view/wait_box/wait_box.dart';
+import 'package:angular/core.dart';
+import 'package:tekartik_angular_utils/view/wait_box/wait_box.dart';
 
 @Component(
     selector: 'app',

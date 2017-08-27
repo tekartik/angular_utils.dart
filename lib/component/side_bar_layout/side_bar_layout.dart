@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
 
 const String sideBarClosedClass = "sidebar-closed";

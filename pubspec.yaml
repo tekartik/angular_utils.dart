@@ -1,10 +1,10 @@
-name: tekartik_angular2_utils
-description: A Dart app that uses Angular 2
-version: 0.0.3
+name: tekartik_angular_utils
+description: A Dart app that uses Angular
+version: 0.1.0
 environment:
   sdk: '>=1.19.0 <2.0.0'
 dependencies:
-  angular2: '>=3.0.0'
+  angular: '>=4.0.0-beta'
   angular_components: '>=0.5.0'
   tekartik_app_utils:
     git: git://github.com/tekartik/app_utils.dart
@@ -19,11 +19,7 @@ dev_dependencies:
   chrome_travis:
     git: git://github.com/tekartik/chrome_travis.dart
 transformers:
-- angular2:
-    platform_directives:
-    - 'package:angular2/common.dart#COMMON_DIRECTIVES'
-    platform_pipes:
-    - 'package:angular2/common.dart#COMMON_PIPES'
+- angular:
     entry_points:
     - web/main.dart
     - example/side_bar/main.dart

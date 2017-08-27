@@ -1,4 +1,4 @@
-import 'package:angular2/core.dart';
+import 'package:angular/core.dart';
 import 'package:angular_components/angular_components.dart';
 
 @Component(
