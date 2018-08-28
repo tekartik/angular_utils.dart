@@ -44,5 +44,4 @@ class AppComponent implements OnInit {
     });
     */
   }
-
 }

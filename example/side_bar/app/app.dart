@@ -16,32 +16,32 @@ class AppComponent implements OnInit {
   SideBarLayoutComponent sideBarLayoutComponent;
 
   @ViewChild('hide')
-  ElementRef hideComponent;
+  Element hideComponent;
 
   @ViewChild('show')
-  ElementRef showComponent;
+  Element showComponent;
 
   @ViewChild('reset')
-  ElementRef resetComponent;
+  Element resetComponent;
 
   @ViewChild('toggle')
-  ElementRef toggleComponent;
+  Element toggleComponent;
 
   @override
   void ngOnInit() {
-    (hideComponent.nativeElement as ButtonElement).onClick.listen((_) {
+    (hideComponent as ButtonElement).onClick.listen((_) {
       sideBarLayoutComponent.hideSideBar();
     });
 
-    (showComponent.nativeElement as ButtonElement).onClick.listen((_) {
+    (showComponent as ButtonElement).onClick.listen((_) {
       sideBarLayoutComponent.showSideBar();
     });
 
-    (resetComponent.nativeElement as ButtonElement).onClick.listen((_) {
+    (resetComponent as ButtonElement).onClick.listen((_) {
       sideBarLayoutComponent.resetSideBar();
     });
 
-    (toggleComponent.nativeElement as ButtonElement).onClick.listen((_) {
+    (toggleComponent as ButtonElement).onClick.listen((_) {
       sideBarLayoutComponent.toggleSideBar();
     });
   }

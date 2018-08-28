@@ -7,6 +7,7 @@ const String sideBarClosedClass = "sidebar-closed";
 const String sideBarLargeScreenClass = "sidebar-large-screen";
 
 typedef SideBarLayoutComponentResizeListener(bool bigScreen);
+
 @Component(
     selector: 'side-bar-layout',
     templateUrl: 'side_bar_layout.html',
@@ -22,29 +23,29 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
   @Input()
   String contentMinWidth;
 
-  ElementRef hostRef;
+  Element hostRef;
 
   SideBarLayoutComponent(this.hostRef);
 
   @ViewChild('content')
-  ElementRef contentRef;
+  Element contentRef;
 
-  DivElement get contentElement => contentRef.nativeElement;
+  DivElement get contentElement => contentRef as DivElement;
 
   @ViewChild('sideBar')
-  ElementRef sideBarRef;
+  Element sideBarRef;
 
-  DivElement get sideBarElement => sideBarRef.nativeElement;
+  DivElement get sideBarElement => sideBarRef as DivElement;
 
   @ViewChild('wrapper')
-  ElementRef wrapperRef;
+  Element wrapperRef;
 
-  DivElement get wrapperElement => wrapperRef.nativeElement;
+  DivElement get wrapperElement => wrapperRef as DivElement;
 
   @ContentChild('sideBarLayoutToggleSideBar')
-  ElementRef toggleSideBarRef;
+  Element toggleSideBarRef;
 
-  Element get toggleSideBarElement => toggleSideBarRef?.nativeElement;
+  Element get toggleSideBarElement => toggleSideBarRef;
 
   SideBarLayoutComponentResizeListener _resizeListener;
 
@@ -55,7 +56,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       resizeListener(_bigScreen);
     }
   }
-  
+
   static int getPixelWidth(String textWidth) {
     return int.parse(textWidth.replaceAll("px", ""));
   }
@@ -91,9 +92,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
 
     if (_bigScreen != bigScreen) {
       _bigScreen = bigScreen;
-      (hostRef.nativeElement as Element)
-          .classes
-          .toggle(sideBarLargeScreenClass, _bigScreen);
+      hostRef.classes.toggle(sideBarLargeScreenClass, _bigScreen);
       //devPrint('arranging...big $bigScreen');
 
       // small screen: fixed & height=100%
@@ -127,7 +126,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
           }
         });
       }
-      (hostRef.nativeElement as Element).classes.remove(sideBarClosedClass);
+      hostRef.classes.remove(sideBarClosedClass);
     }
   }
 
@@ -141,7 +140,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
       contentElement.style.marginRight = '0px';
       wrapperElement.style.paddingLeft = '0px';
 
-      (hostRef.nativeElement as Element).classes.add(sideBarClosedClass);
+      hostRef.classes.add(sideBarClosedClass);
     }
   }
 
@@ -184,7 +183,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
 class SideBarLayoutDirective {
   SideBarLayoutComponent element;
 
-  SideBarLayoutDirective(ElementRef element) {
-    element.nativeElement.style.backgroundColor = 'yellow';
+  SideBarLayoutDirective(Element element) {
+    element.style.backgroundColor = 'yellow';
   }
 }

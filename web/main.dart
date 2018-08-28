@@ -3,8 +3,8 @@
 
 import 'package:angular/angular.dart';
 
-import 'package:tekartik_angular_utils/app_component.dart';
+import 'package:tekartik_angular_utils/app_component.template.dart' as ng;
 
-main() {
-  bootstrap(AppComponent);
+void main() {
+  runApp<ng.AppComponent>(ng.AppComponentNgFactory);
 }
