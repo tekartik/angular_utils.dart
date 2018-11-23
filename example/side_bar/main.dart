@@ -11,5 +11,6 @@ import 'app/app.template.dart' as ng;
 main() async {
   await loadCssAppResetCss();
   await loadIronFlexLayoutCss();
+  // ignore: argument_type_not_assignable
   runApp(ng.AppComponentNgFactory);
 }
