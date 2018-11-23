@@ -1,5 +1,5 @@
 <div #wrapper class="sidebar-layout-wrapper">
-
+  <div *ngIf="temporarySideBarVisible" id="overlay" (click)="onOverlayClick()"></div>
   <!-- Sidebar -->
   <div #sideBar class="sidebar-layout-sidebar">
     <ng-content select="[side-bar]"></ng-content>

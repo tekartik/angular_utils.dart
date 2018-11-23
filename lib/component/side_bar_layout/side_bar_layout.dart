@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:angular/angular.dart';
 import 'package:angular/core.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
 
@@ -11,11 +12,17 @@ typedef SideBarLayoutComponentResizeListener(bool bigScreen);
 @Component(
     selector: 'side-bar-layout',
     templateUrl: 'side_bar_layout.html',
+    directives: [NgIf],
     styleUrls: const <String>['side_bar_layout.css'])
-class SideBarLayoutComponent implements OnInit, AfterContentInit {
+class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   bool _sideBarVisible;
   bool _bigScreen;
   bool _shouldHandleContentClick;
+
+  bool get temporarySideBarVisible => _temporary && _sideBarVisible == true;
+  bool get _temporary => parseBool(temporary) ?? false;
+  @Input()
+  String temporary;
 
   @Input()
   String sideBarWidth;
@@ -48,6 +55,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
   Element get toggleSideBarElement => toggleSideBarRef;
 
   SideBarLayoutComponentResizeListener _resizeListener;
+  MediaQueryList mql;
 
   // make sure the listener is called right away
   set resizeListener(SideBarLayoutComponentResizeListener resizeListener) {
@@ -61,25 +69,37 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
     return int.parse(textWidth.replaceAll("px", ""));
   }
 
+  _onMediaChanged(Event _event) {
+    _arrange(mql.matches);
+  }
+
   @override
   void ngOnInit() {
     //devPrint("sideBarWidth $sideBarWidth");
 
     int sideBarWidth_ = getPixelWidth(sideBarWidth);
     int contentMinWidth_ = getPixelWidth(contentMinWidth);
-    MediaQueryList mql =
+    mql =
         window.matchMedia("(min-width: ${sideBarWidth_ + contentMinWidth_}px)");
     //devPrint(mql.matches);
     _arrange(mql.matches, noAnimation: true);
-    mql.addListener((Event event) {
-      //devPrint("Changed");
-      //devPrint(event);
-      //devPrint(mql.matches);
-      _arrange(mql.matches);
-    });
+    mql.addListener(_onMediaChanged);
+  }
+
+  @override
+  void ngOnDestroy() {
+    try {
+      mql.removeListener(_onMediaChanged);
+    } catch (e, st) {
+      print(e);
+      print(st);
+    }
   }
 
   _arrange(bool bigScreen, {bool noAnimation}) {
+    // consider small if temporary
+    bigScreen = bigScreen && !_temporary;
+    // devPrint('temporary: $temporary bigScreen: $bigScreen (was $_bigScreen)');
     if (_resizeListener != null) {
       _resizeListener(bigScreen);
     }
@@ -107,27 +127,29 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
   }
 
   void showSideBar({bool noAnimation}) {
-    if (!_sideBarVisible) {
-      //sideBarElement.style.transform = 'translate(${sideBarWidth},0px)';
-      _sideBarVisible = true;
-      sideBarElement.style.left = '${sideBarWidth}';
+    // Always execute as we might be switching from a small screen
+    // to a big screen
+    // if (!_sideBarVisible) {
+    //sideBarElement.style.transform = 'translate(${sideBarWidth},0px)';
+    _sideBarVisible = true;
+    sideBarElement.style.left = '${sideBarWidth}';
 
-      // push for big screen
-      if (_bigScreen) {
-        contentElement.style.marginRight =
-            _bigScreen ? '0px' : '-${sideBarWidth}';
-        wrapperElement.style.paddingLeft = '${sideBarWidth}';
-      } else {
-        // wait 500ms before handling click
-        sleep(500).then((_) {
-          //devPrint('_shouldHandleContentClick');
-          if (!_bigScreen && _sideBarVisible) {
-            _shouldHandleContentClick = true;
-          }
-        });
-      }
-      hostRef.classes.remove(sideBarClosedClass);
+    // push for big screen
+    if (_bigScreen) {
+      contentElement.style.marginRight =
+          _bigScreen ? '0px' : '-${sideBarWidth}';
+      wrapperElement.style.paddingLeft = '${sideBarWidth}';
+    } else {
+      // wait 500ms before handling click
+      sleep(500).then((_) {
+        //devPrint('_shouldHandleContentClick');
+        if (!_bigScreen && _sideBarVisible) {
+          _shouldHandleContentClick = true;
+        }
+      });
     }
+    hostRef.classes.remove(sideBarClosedClass);
+    // }
   }
 
   void hideSideBar({bool noAnimation}) {
@@ -176,6 +198,10 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit {
     if (_shouldHandleContentClick) {
       resetSideBar();
     }
+  }
+
+  onOverlayClick() {
+    hideSideBar();
   }
 }
 
