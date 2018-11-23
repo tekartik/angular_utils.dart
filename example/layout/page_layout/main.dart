@@ -10,5 +10,6 @@ main() async {
   await loadCssAppResetCss();
   await loadIronFlexLayoutCss();
   //bootstrap(AppComponent);
+  // ignore: argument_type_not_assignable
   runApp(ng.AppComponentNgFactory);
 }

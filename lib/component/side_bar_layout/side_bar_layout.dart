@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular/core.dart';
+import 'package:tekartik_angular_utils/component/side_bar_layout/side_bar_layout_common.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
 
 const String sideBarClosedClass = "sidebar-closed";
@@ -63,10 +64,6 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
     if (resizeListener != null && _bigScreen != null) {
       resizeListener(_bigScreen);
     }
-  }
-
-  static int getPixelWidth(String textWidth) {
-    return int.parse(textWidth.replaceAll("px", ""));
   }
 
   _onMediaChanged(Event _event) {
