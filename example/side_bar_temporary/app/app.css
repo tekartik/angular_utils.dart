@@ -7,7 +7,9 @@ side-bar-layout [side-bar] {
     background: #888;
     /*
     flex: 1;
-    min-height: 100%;
     */
+    /* good option to set in your project */
+    min-height: 100%;
+
 }
 

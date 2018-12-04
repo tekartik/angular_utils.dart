@@ -20,8 +20,14 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   bool _bigScreen;
   bool _shouldHandleContentClick;
 
-  bool get temporarySideBarVisible => _temporary && _sideBarVisible == true;
+  bool get hasTemporarySideBar => _temporary || (_bigScreen != true);
+
+  bool get temporarySideBarVisible =>
+      hasTemporarySideBar && _sideBarVisible == true;
+
   bool get _temporary => parseBool(temporary) ?? false;
+
+  /// To force temporary side bar even on large screen
   @Input()
   String temporary;
 
@@ -146,7 +152,6 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
       });
     }
     hostRef.classes.remove(sideBarClosedClass);
-    // }
   }
 
   void hideSideBar({bool noAnimation}) {

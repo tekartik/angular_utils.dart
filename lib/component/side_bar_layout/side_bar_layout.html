@@ -1,15 +1,18 @@
 <div #wrapper class="sidebar-layout-wrapper">
-  <div *ngIf="temporarySideBarVisible" id="overlay" (click)="onOverlayClick()"></div>
-  <!-- Sidebar -->
-  <div #sideBar class="sidebar-layout-sidebar">
-    <ng-content select="[side-bar]"></ng-content>
-  </div>
-  <!-- /#sidebar-wrapper -->
+    <!-- the overlay when the side bar is temporarily visible -->
+    <div class="sidebar-layout-content-overlay" *ngIf="temporarySideBarVisible"
+         (click)="onOverlayClick()"></div>
 
-  <!-- Page Content -->
-  <div #content class="sidebar-layout-content" (click)="onContentClick()">
-    <ng-content select="[content]"></ng-content>
-  </div>
-  <!-- /#page-content-wrapper -->
+    <!-- Sidebar -->
+    <div #sideBar class="sidebar-layout-sidebar">
+        <ng-content select="[side-bar]"></ng-content>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div #content class="sidebar-layout-content" (click)="onContentClick()">
+        <ng-content select="[content]"></ng-content>
+    </div>
+    <!-- /#page-content-wrapper -->
 
 </div>

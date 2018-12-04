@@ -5,7 +5,8 @@ page-layout [content] {
 page-layout [header] {
     padding: 15px;
     background: #888;
-    flex: 1;
+    /*flex: 1;
     min-height: 100%;
+    */
 }
 
