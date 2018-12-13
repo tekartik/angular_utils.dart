@@ -27,6 +27,8 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
 
   bool get _temporary => parseBool(temporary) ?? false;
 
+  bool get isSideBarVisible => _sideBarVisible == true;
+
   /// To force temporary side bar even on large screen
   @Input()
   String temporary;
