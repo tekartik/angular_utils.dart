@@ -105,9 +105,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
     // consider small if temporary
     bigScreen = bigScreen && !_temporary;
     // devPrint('temporary: $temporary bigScreen: $bigScreen (was $_bigScreen)');
-    if (_resizeListener != null) {
-      _resizeListener(bigScreen);
-    }
+
     if (_sideBarVisible == null) {
       _sideBarVisible = false;
       sideBarElement.style.marginLeft = '-${sideBarWidth}';
@@ -128,6 +126,11 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
         sideBarElement.style.height = "100%";
       }
       resetSideBar(noAnimation: noAnimation);
+    }
+
+    // Notify listeners
+    if (_resizeListener != null) {
+      _resizeListener(bigScreen);
     }
   }
 
