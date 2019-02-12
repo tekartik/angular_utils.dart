@@ -2,6 +2,7 @@ side-bar-layout [content] {
     padding: 15px;
     background: #eee;
 }
+
 side-bar-layout [side-bar] {
     padding: 15px;
     background: #888;

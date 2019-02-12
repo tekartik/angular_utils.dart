@@ -2,6 +2,7 @@ page-layout [content] {
     padding: 15px;
     background: #eee;
 }
+
 page-layout [header] {
     padding: 15px;
     background: #888;

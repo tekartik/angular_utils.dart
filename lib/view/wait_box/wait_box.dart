@@ -4,9 +4,9 @@ import 'package:angular_components/angular_components.dart';
 @Component(
     selector: 'wait-box',
     templateUrl: 'wait_box.html',
-    styleUrls: const <String>['wait_box.css'],
-    directives: const [MaterialSpinnerComponent],
-    providers: const [])
+    styleUrls: <String>['wait_box.css'],
+    directives: [MaterialSpinnerComponent],
+    providers: [])
 class WaitBoxComponent implements OnInit {
   WaitBoxComponent();
 

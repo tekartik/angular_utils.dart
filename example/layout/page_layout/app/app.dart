@@ -4,10 +4,11 @@ import 'package:tekartik_angular_utils/layout/page_layout/page_layout.dart';
 @Component(
     selector: 'app',
     templateUrl: 'app.html',
-    styleUrls: const <String>['app.css'],
-    directives: const [PageLayout])
+    styleUrls: <String>['app.css'],
+    directives: [PageLayout])
 class AppComponent implements OnInit {
   AppComponent();
+
 /*
   @ViewChild('sideBarLayout')
   SideBarLayoutComponent sideBarLayoutComponent;
