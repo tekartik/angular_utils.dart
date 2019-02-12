@@ -8,13 +8,22 @@ import 'package:tekartik_browser_utils/browser_utils_import.dart';
 const String sideBarClosedClass = "sidebar-closed";
 const String sideBarLargeScreenClass = "sidebar-large-screen";
 
-typedef SideBarLayoutComponentResizeListener(bool bigScreen);
+typedef void SideBarLayoutComponentResizeListener(bool bigScreen);
+
+@Directive(selector: '[side-bar-width]')
+class SideBarLayoutDirective {
+  SideBarLayoutComponent element;
+
+  SideBarLayoutDirective(Element element) {
+    element.style.backgroundColor = 'yellow';
+  }
+}
 
 @Component(
     selector: 'side-bar-layout',
     templateUrl: 'side_bar_layout.html',
     directives: [NgIf],
-    styleUrls: const <String>['side_bar_layout.css'])
+    styleUrls: <String>['side_bar_layout.css'])
 class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   bool _sideBarVisible;
   bool _bigScreen;
@@ -74,7 +83,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
     }
   }
 
-  _onMediaChanged(Event _event) {
+  void _onMediaChanged(Event _event) {
     _arrange(mql.matches);
   }
 
@@ -82,10 +91,10 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   void ngOnInit() {
     //devPrint("sideBarWidth $sideBarWidth");
 
-    int sideBarWidth_ = getPixelWidth(sideBarWidth);
-    int contentMinWidth_ = getPixelWidth(contentMinWidth);
-    mql =
-        window.matchMedia("(min-width: ${sideBarWidth_ + contentMinWidth_}px)");
+    int sideBarWidthInt = getPixelWidth(sideBarWidth);
+    int contentMinWidthInt = getPixelWidth(contentMinWidth);
+    mql = window
+        .matchMedia("(min-width: ${sideBarWidthInt + contentMinWidthInt}px)");
     //devPrint(mql.matches);
     _arrange(mql.matches, noAnimation: true);
     mql.addListener(_onMediaChanged);
@@ -101,7 +110,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
     }
   }
 
-  _arrange(bool bigScreen, {bool noAnimation}) {
+  void _arrange(bool bigScreen, {bool noAnimation}) {
     // consider small if temporary
     bigScreen = bigScreen && !_temporary;
     // devPrint('temporary: $temporary bigScreen: $bigScreen (was $_bigScreen)');
@@ -190,7 +199,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   }
 
   @override
-  ngAfterContentInit() {
+  void ngAfterContentInit() {
     // TODO: implement ngAfterContentInit
     //devPrint('toggle?: ${toggleSideBarRef}');
     if (toggleSideBarElement != null) {
@@ -200,23 +209,14 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
     }
   }
 
-  onContentClick() {
+  void onContentClick() {
     //devPrint("onContentClick($_shouldHandleContentClick _bigScreen $_sideBarVisible)");
     if (_shouldHandleContentClick) {
       resetSideBar();
     }
   }
 
-  onOverlayClick() {
+  void onOverlayClick() {
     hideSideBar();
-  }
-}
-
-@Directive(selector: '[side-bar-width]')
-class SideBarLayoutDirective {
-  SideBarLayoutComponent element;
-
-  SideBarLayoutDirective(Element element) {
-    element.style.backgroundColor = 'yellow';
   }
 }

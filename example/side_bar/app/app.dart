@@ -1,14 +1,14 @@
+import 'dart:html';
+
 import 'package:angular/core.dart';
 import 'package:tekartik_angular_utils/component/side_bar_layout/side_bar_layout.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
 
-import 'dart:html';
-
 @Component(
     selector: 'app',
     templateUrl: 'app.html',
-    styleUrls: const <String>['app.css'],
-    directives: const [SideBarLayoutComponent])
+    styleUrls: <String>['app.css'],
+    directives: [SideBarLayoutComponent])
 class AppComponent implements OnInit {
   AppComponent();
 

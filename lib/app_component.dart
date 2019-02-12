@@ -5,6 +5,6 @@ import 'package:angular/core.dart';
 
 @Component(
     selector: 'my-app',
-    styleUrls: const ['app_component.css'],
+    styleUrls: ['app_component.css'],
     templateUrl: 'app_component.html')
 class AppComponent {}

@@ -4,10 +4,11 @@ import 'package:tekartik_angular_utils/view/wait_box/wait_box.dart';
 @Component(
     selector: 'app',
     templateUrl: 'app.html',
-    styleUrls: const <String>['app.css'],
-    directives: const [WaitBoxComponent])
+    styleUrls: <String>['app.css'],
+    directives: [WaitBoxComponent])
 class AppComponent implements OnInit {
   AppComponent();
+
 /*
   @ViewChild('sideBarLayout')
   SideBarLayoutComponent sideBarLayoutComponent;
