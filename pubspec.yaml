@@ -24,6 +24,7 @@ dependencies:
     version: '>=0.6.5'
 
 dev_dependencies:
+  process_run: '>=0.10.1'
   dev_test: any
   chrome_travis:
     git:
