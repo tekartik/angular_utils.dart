@@ -1,4 +1,4 @@
-# tekartik_angular2_utils.dart
+# tekartik_angular_utils.dart
 
 Angular2 helper components
 
