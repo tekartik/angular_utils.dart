@@ -11,7 +11,7 @@ void main(List<String> args) {
 }
 
 void exampleSidebar() {
-  app.path = join("example", "side_bar");
+  app.path = join('example', 'side_bar');
   app.gsPath = 'gs://gs.tk4k.ovh/angular_utils/example/side_bar';
 }
 

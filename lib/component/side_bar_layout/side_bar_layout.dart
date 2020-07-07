@@ -10,8 +10,6 @@ const sideBarLargeScreenClass = 'sidebar-large-screen';
 
 typedef SideBarLayoutComponentResizeListener = void Function(bool bigScreen);
 
-typedef SideBarLayoutComponentResizeListener(bool bigScreen);
-
 @Component(
     selector: 'side-bar-layout',
     templateUrl: 'side_bar_layout.html',
@@ -21,6 +19,19 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   bool _sideBarVisible;
   bool _bigScreen;
   bool _shouldHandleContentClick;
+
+  bool get hasTemporarySideBar => _temporary || (_bigScreen != true);
+
+  bool get temporarySideBarVisible =>
+      hasTemporarySideBar && _sideBarVisible == true;
+
+  bool get _temporary => parseBool(temporary) ?? false;
+
+  bool get isSideBarVisible => _sideBarVisible == true;
+
+  /// To force temporary side bar even on large screen
+  @Input()
+  String temporary;
 
   @Input()
   String sideBarWidth;
@@ -53,6 +64,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   Element get toggleSideBarElement => toggleSideBarRef;
 
   SideBarLayoutComponentResizeListener _resizeListener;
+  MediaQueryList mql;
 
   // make sure the listener is called right away
   set resizeListener(SideBarLayoutComponentResizeListener resizeListener) {
@@ -188,7 +200,7 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
     }
   }
 
-  onContentClick() {
+  void onContentClick() {
     //devPrint("onContentClick($_shouldHandleContentClick _bigScreen $_sideBarVisible)");
     if (_shouldHandleContentClick) {
       resetSideBar();
@@ -197,5 +209,14 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
 
   void onOverlayClick() {
     hideSideBar();
+  }
+}
+
+@Directive(selector: '[side-bar-width]')
+class SideBarLayoutDirective {
+  SideBarLayoutComponent element;
+
+  SideBarLayoutDirective(Element element) {
+    element.style.backgroundColor = 'yellow';
   }
 }
