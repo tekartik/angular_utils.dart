@@ -1,3 +1,3 @@
 int getPixelWidth(String textWidth) {
-  return int.parse(textWidth.replaceAll("px", ""));
+  return int.parse(textWidth.replaceAll('px', ''));
 }

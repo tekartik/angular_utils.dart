@@ -2,7 +2,7 @@ name: tekartik_angular_utils
 description: A Dart app that uses Angular
 version: 0.2.3+1
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.8.0 <3.0.0'
 dependencies:
   angular: '>=5.0.0'
   angular_components: '>=0.9.0'
@@ -40,3 +40,6 @@ dev_dependencies:
 #    path: ../tekartik_app_utils.dart
 #  tekartik_build_utils:
 #    path: ../build_utils.dart
+
+# dependency_overrides:
+#  test_core: '>=0.3.10'

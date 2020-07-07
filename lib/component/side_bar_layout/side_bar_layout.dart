@@ -5,10 +5,10 @@ import 'package:angular/core.dart';
 import 'package:tekartik_angular_utils/component/side_bar_layout/side_bar_layout_common.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
 
-const String sideBarClosedClass = "sidebar-closed";
-const String sideBarLargeScreenClass = "sidebar-large-screen";
+const sideBarClosedClass = 'sidebar-closed';
+const sideBarLargeScreenClass = 'sidebar-large-screen';
 
-typedef void SideBarLayoutComponentResizeListener(bool bigScreen);
+typedef SideBarLayoutComponentResizeListener = void Function(bool bigScreen);
 
 @Directive(selector: '[side-bar-width]')
 class SideBarLayoutDirective {
@@ -91,10 +91,10 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
   void ngOnInit() {
     //devPrint("sideBarWidth $sideBarWidth");
 
-    int sideBarWidthInt = getPixelWidth(sideBarWidth);
-    int contentMinWidthInt = getPixelWidth(contentMinWidth);
+    var sideBarWidthInt = getPixelWidth(sideBarWidth);
+    var contentMinWidthInt = getPixelWidth(contentMinWidth);
     mql = window
-        .matchMedia("(min-width: ${sideBarWidthInt + contentMinWidthInt}px)");
+        .matchMedia('(min-width: ${sideBarWidthInt + contentMinWidthInt}px)');
     //devPrint(mql.matches);
     _arrange(mql.matches, noAnimation: true);
     mql.addListener(_onMediaChanged);
@@ -128,11 +128,11 @@ class SideBarLayoutComponent implements OnInit, AfterContentInit, OnDestroy {
       //devPrint('arranging...big $bigScreen');
 
       // small screen: fixed & height=100%
-      sideBarElement.style.position = _bigScreen ? "absolute" : "fixed";
+      sideBarElement.style.position = _bigScreen ? 'absolute' : 'fixed';
       if (_bigScreen) {
         sideBarElement.style.height = null;
       } else {
-        sideBarElement.style.height = "100%";
+        sideBarElement.style.height = '100%';
       }
       resetSideBar(noAnimation: noAnimation);
     }
